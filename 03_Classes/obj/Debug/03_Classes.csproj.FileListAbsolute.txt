@@ -1,0 +1,7 @@
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\bin\Debug\03_Classes.exe.config
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\bin\Debug\03_Classes.exe
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\bin\Debug\03_Classes.pdb
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\obj\Debug\03_Classes.csprojAssemblyReference.cache
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\obj\Debug\03_Classes.csproj.CoreCompileInputs.cache
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\obj\Debug\03_Classes.exe
+C:\ElevenFiftyProjects\CSharpFundamentals\03_Classes\obj\Debug\03_Classes.pdb

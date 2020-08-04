@@ -1,0 +1,7 @@
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\bin\Debug\05_Loops.exe.config
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\bin\Debug\05_Loops.exe
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\bin\Debug\05_Loops.pdb
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\obj\Debug\05_Loops.csprojAssemblyReference.cache
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\obj\Debug\05_Loops.csproj.CoreCompileInputs.cache
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\obj\Debug\05_Loops.exe
+C:\ElevenFiftyProjects\CSharpFundamentals\05_Loops\obj\Debug\05_Loops.pdb

@@ -1,0 +1,7 @@
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\bin\Debug\01_ReferencesTypes.exe.config
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\bin\Debug\01_ReferencesTypes.exe
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\bin\Debug\01_ReferencesTypes.pdb
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\obj\Debug\01_ReferencesTypes.csprojAssemblyReference.cache
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\obj\Debug\01_ReferencesTypes.csproj.CoreCompileInputs.cache
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\obj\Debug\01_ReferencesTypes.exe
+C:\ElevenFiftyProjects\CSharpFundamentals\01_ReferencesTypes\obj\Debug\01_ReferencesTypes.pdb
