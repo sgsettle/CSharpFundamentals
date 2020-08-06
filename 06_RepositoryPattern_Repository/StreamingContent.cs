@@ -76,7 +76,9 @@ namespace _06_RepositoryPattern_Repository
     // Defining values of genres to choose from instead of letting users set new data
     public enum GenreType
     {
+        // Action/Adventure = 1, example made from note in ProgramUI
         ActionAdventure,
+        Action,
         Thriller,
         Horror,
         Comedy,
