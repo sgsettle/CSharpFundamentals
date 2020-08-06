@@ -84,6 +84,7 @@ namespace _08_StreamingContent_ConsoleUI
                     break;
                 case "3":
                     // add new content
+                    CreateNewContent();
                     break;
                 case "4":
                     // update content
@@ -206,10 +207,13 @@ namespace _08_StreamingContent_ConsoleUI
             int releaseYear = int.Parse(Console.ReadLine());
 
             // Genre 
+            GenreType genre = GetGenreType();
 
             // Construct a StreamingContent object given the above values
+            StreamingContent newContent = new StreamingContent(title, description, maturityRating, starRating, releaseYear, genre);
 
             // Add the StreamingContent object to the repository ("Save" the content)
+            _streamingRepo.AddContentToDirectory(newContent);
         }
 
         // helper method so we can call it create new content and update content, so we have 1 large block of code and call method twice instead of 2 large blocks of code that do the same thing
@@ -272,13 +276,36 @@ namespace _08_StreamingContent_ConsoleUI
                 "6. Bromance\n" +
                 "7. Mystery\n" +
                 "8. SciFi");
+            while (true)
+            {
+                // One Working Version
+                //string genreString = Console.ReadLine();
+                //int genreId = int.Parse(genreString); // Can pass in Console.ReadLine here as well instead of using string
+                // casting takes one value and converts it to a different type
+                // We're taking the int value user inputted and casted it into GenreType type
+                // Since enum starts at 0, we can either take value below and -1 or we can go into enum in StreamingContent and set first (Action/Adventure) = 1 (example in enum in StreamingContent)
+                //GenreType genre = (GenreType)genreId - 1;
+                //return genre;
 
-            string genreString = Console.ReadLine();
-            int genreId = int.Parse(genreString); // Can pass in Console.ReadLine here as well instead of using string
-            // casting takes one value and converts it to a different type
-            // We're taking the int value user inputted and casted it into GenreType type
-            // Since enum starts at 0, we can either take value below and -1 or we can go into enum in StreamingContent and set first (Action/Adventure) = 1 (example in enum in StreamingContent)
-            GenreType genre = (GenreType)genreId -1;
+                // Second Working Version
+                // Long way to do the second version
+                string genreString = Console.ReadLine();
+                bool parseResult = int.TryParse(genreString, out int parsedNumber);
+                if (parseResult && parsedNumber >= 1 && parsedNumber < 9)
+                {
+                    GenreType genre = (GenreType)parsedNumber - 1;
+                    return genre;
+                }
+                // TryParse needs a bool to return
+
+                // Short way to do the second version
+                //if (int.TryParse(Console.ReadLine(), out int genreId))
+                //{
+                //    return (GenreType)genreId - 1;
+                //}
+
+                //Console.WriteLine("Invalid selection. Please try again.");
+            }
         }
 
         // Update Content
