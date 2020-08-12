@@ -1,4 +1,5 @@
 ﻿using _06_RepositoryPattern_Repository;
+using _08_StreamingContent_ConsoleUI.Consoles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,26 @@ namespace _08_StreamingContent_ConsoleUI
     // public - can be used throughout the solution
     // internal - can only be accessed within the assembly/project
     // private - can only be accessed within the class
-    class ProgramUI
+    public class ProgramUI
     {
         // Field added to be able to get user out of loop in RunMenu
         // Field is a variable in the class but is not a property (doesn't use get and set)
         // Doing this so we can set everything in our switch case to True with void (instead of setting OpenMenuItem to a bool), declaring _isRunning in case 6 to false so user can exit  
         private bool _isRunning = true;
+        // should be able to replace all of our console uses
+        private readonly IConsole _console;
         // Create a field of StreamingContentRepository so we can use it 
         // make it read only so we don't break it
         // made this a field so we're not creating a new repository every time
         private readonly StreamingContentRepository _streamingRepo = new StreamingContentRepository();
         // we store Fields as _whateverName to call later
+
+        // Constructor with INjected IConsole dependency
+        public ProgramUI(IConsole console)
+        {
+            // Assigning our injected IConsole to our IConsole field
+            _console = console;
+        }
 
         // void basically just gets the method to start --> doesn't return anything just does something
         // Entry point to our UI, it starts our user interface
@@ -50,11 +60,11 @@ namespace _08_StreamingContent_ConsoleUI
         }
         private string GetMenuSelection()
         {
-            Console.Clear();
+            _console.Clear();
             // .Clear will clear the screen and prints the menu
             // concatenate strings, can hit enter inside of string and vs code will concatenate for you
             // makes it easier to read as a developer
-            Console.WriteLine(
+            _console.WriteLine(
                 "Welcome to the Streaming Content Management System!\n" +
                 "Select Menu Item:\n" +
                 "1. Show All Streaming Content\n" +
@@ -64,13 +74,13 @@ namespace _08_StreamingContent_ConsoleUI
                 "5. Remove Streaming Content\n" +
                 "6. Exit");
 
-            string userInput = Console.ReadLine();
+            string userInput = _console.ReadLine();
             return userInput;
         }
 
         private void OpenMenuItem(string userInput)
         {
-            Console.Clear();
+            _console.Clear();
             // putting clear here to clear the menu and display user input
             switch (userInput)
             {
@@ -100,12 +110,12 @@ namespace _08_StreamingContent_ConsoleUI
                 // if break instead of return, it will get hung up on ReadKey and user will have to hit another key on exit
                 default:
                     // Invalid selection
-                    Console.WriteLine("Invalid input.");
+                    _console.WriteLine("Invalid input.");
                     return;
                     // return is a way of getting out of a method entirely with void
             }
-            Console.WriteLine("Press any key to return to the menu...");
-            Console.ReadKey();
+            _console.WriteLine("Press any key to return to the menu...");
+            _console.ReadKey();
             //ReadKey will read any key that is pressed
             // putting these under the switch case so we don't have to write them in every case
         }
@@ -133,7 +143,7 @@ namespace _08_StreamingContent_ConsoleUI
         // able to continue calling this later on
         private void DisplayContent(StreamingContent content)
         {
-            Console.WriteLine($"Title: {content.Title}\n" +
+            _console.WriteLine($"Title: {content.Title}\n" +
                 $"Description: {content.Description}\n" +
                 $"Genre: {content.Genre}\n" +
                 $"Stars: {content.StarRating}\n" +
@@ -146,10 +156,10 @@ namespace _08_StreamingContent_ConsoleUI
         private void DisplayContentByTitle()
         {
             // Prompt the user to give us a title
-            Console.WriteLine("Enter a title:");
+            _console.WriteLine("Enter a title:");
 
             // Get and store the users input
-            string title = Console.ReadLine();
+            string title = _console.ReadLine();
 
             // Find the matching content in the repository
             StreamingContent searchResult = _streamingRepo.GetContentByTitle(title);
@@ -168,7 +178,7 @@ namespace _08_StreamingContent_ConsoleUI
             // If there's no content found, go ahead and say so
             else
             {
-                Console.WriteLine("Invalid title. Could not find any results.");
+                _console.WriteLine("Invalid title. Could not find any results.");
             }
 
         }
@@ -184,27 +194,27 @@ namespace _08_StreamingContent_ConsoleUI
 
             // Gather values for all properties for the StreamingContent object
             // Title
-            Console.Write("Enter a Title: ");
-            // Console.Write with a ReadLine will let user input on the same line as WriteLine (Title: "user input")
-            string title = Console.ReadLine();
+            _console.Write("Enter a Title: ");
+            // _console.Write with a ReadLine will let user input on the same line as WriteLine (Title: "user input")
+            string title = _console.ReadLine();
 
             // Description
-            Console.Write("Enter a Description: ");
-            string description = Console.ReadLine();
+            _console.Write("Enter a Description: ");
+            string description = _console.ReadLine();
 
             // MaturityRating
             // calling helper method made below
             MaturityRating maturityRating = GetMaturityRating();
 
             // StarRating
-            Console.Write("Enter the Star Rating (1-5): ");
-            double starRating = double.Parse(Console.ReadLine());
+            _console.Write("Enter the Star Rating (1-5): ");
+            double starRating = double.Parse(_console.ReadLine());
             // parse method is a little fragile that if user typed something that wasn't a double it will not parse correctly
             // maybe refactor later so it won't break when not given a number
 
             // Release Year
-            Console.Write("Enter the Release Year: ");
-            int releaseYear = int.Parse(Console.ReadLine());
+            _console.Write("Enter the Release Year: ");
+            int releaseYear = int.Parse(_console.ReadLine());
 
             // Genre 
             GenreType genre = GetGenreType();
@@ -219,7 +229,7 @@ namespace _08_StreamingContent_ConsoleUI
         // helper method so we can call it create new content and update content, so we have 1 large block of code and call method twice instead of 2 large blocks of code that do the same thing
         private MaturityRating GetMaturityRating()
         {
-            Console.WriteLine("Select a Maturity Rating:\n" +
+            _console.WriteLine("Select a Maturity Rating:\n" +
                 "1. G\n" +
                 "2. PG\n" +
                 "3. TV Y \n" +
@@ -230,16 +240,16 @@ namespace _08_StreamingContent_ConsoleUI
                 "8. TV 14\n" +
                 "9. TV MA");
 
-            // string maturityString = Console.ReadLine();
+            // string maturityString = _console.ReadLine();
             // MaturityRating maturityRating;
             // reason we're declaring maturityRating here is if we use a switch case we can use it inside the switch and making it available outside of switch to use later on
             // left in above so I can reference what we first did when we were going to use it in create new content instead of creating a helper method
             // got rid of maturityRating = in switch case because we're just returning values 
-            // can call Console.Readline as an argument instead of having a string, whatever ReadLine returns is what switch will evaluate
+            // can call _console.Readline as an argument instead of having a string, whatever ReadLine returns is what switch will evaluate
             // created while loop to lock user in loop if they do not choose something in the switch case (20, apple, 10, etc.), they cannot exit loop until they choose 1-9
             while (true)
             {
-                switch (Console.ReadLine())
+                switch (_console.ReadLine())
                 {
                     case "1":
                         return MaturityRating.G;
@@ -260,14 +270,14 @@ namespace _08_StreamingContent_ConsoleUI
                     case "9":
                         return MaturityRating.TV_MA;
                 }
-                Console.WriteLine("Invalid selection.");
+                _console.WriteLine("Invalid selection.");
             }
         }
 
         // creating new method for genre type enum
         private GenreType GetGenreType()
         {
-            Console.WriteLine("Select a Genre: " +
+            _console.WriteLine("Select a Genre: " +
                 "1. Action/Adventure\n" +
                 "2. Action\n" +
                 "3. Thriller\n" +
@@ -279,8 +289,8 @@ namespace _08_StreamingContent_ConsoleUI
             while (true)
             {
                 // One Working Version
-                //string genreString = Console.ReadLine();
-                //int genreId = int.Parse(genreString); // Can pass in Console.ReadLine here as well instead of using string
+                //string genreString = _console.ReadLine();
+                //int genreId = int.Parse(genreString); // Can pass in _console.ReadLine here as well instead of using string
                 // casting takes one value and converts it to a different type
                 // We're taking the int value user inputted and casted it into GenreType type
                 // Since enum starts at 0, we can either take value below and -1 or we can go into enum in StreamingContent and set first (Action/Adventure) = 1 (example in enum in StreamingContent)
@@ -289,7 +299,7 @@ namespace _08_StreamingContent_ConsoleUI
 
                 // Second Working Version
                 // Long way to do the second version
-                string genreString = Console.ReadLine();
+                string genreString = _console.ReadLine();
                 bool parseResult = int.TryParse(genreString, out int parsedNumber);
                 if (parseResult && parsedNumber >= 1 && parsedNumber < 9)
                 {
@@ -299,12 +309,12 @@ namespace _08_StreamingContent_ConsoleUI
                 // TryParse needs a bool to return
 
                 // Short way to do the second version
-                //if (int.TryParse(Console.ReadLine(), out int genreId))
+                //if (int.TryParse(_console.ReadLine(), out int genreId))
                 //{
                 //    return (GenreType)genreId - 1;
                 //}
 
-                //Console.WriteLine("Invalid selection. Please try again.");
+                //_console.WriteLine("Invalid selection. Please try again.");
             }
         }
 
